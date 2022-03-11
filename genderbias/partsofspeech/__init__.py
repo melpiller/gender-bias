@@ -57,7 +57,7 @@ class PartofSpeechDetector(Detector):
                     if word_pos[count + 2][1] == 'IN':
                         preposition_pairs.append(word_pairs[count][0])
                         preposition_pairs.append(word_pairs[count][1])
-        _prep_pairs_regex = "("
+        _prep_pairs_regex = "(?:"
         for count, pair in enumerate(preposition_pairs):
             if count < len(preposition_pairs) - 2:
                 _prep_pairs_regex = _prep_pairs_regex + preposition_pairs[count] + " " + preposition_pairs[
