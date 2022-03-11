@@ -101,7 +101,6 @@ class RaisesDoubtDetector(Detector):
                         irrelevancies_in_text.append(x)
         doubt_raising_words.append(irrelevancies_in_text)
 
-
         _doubt_raisers_regex = "(?:"
         for count, pair in enumerate(doubt_raising_words):
             if count < len(doubt_raising_words) - 1:
