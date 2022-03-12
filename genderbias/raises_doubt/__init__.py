@@ -8,7 +8,6 @@ author to review the identified phrases and consider removing them.
 
 """
 
-
 import os
 import re
 import nltk
@@ -18,7 +17,6 @@ from genderbias.detector import Detector, Flag, Issue, Report
 _dir = os.path.dirname(__file__)
 
 
-
 class RaisesDoubtDetector(Detector):
     """
     This detector looks for phrases that raise doubt, including negative language, hedges, faint praise,
@@ -26,7 +24,6 @@ class RaisesDoubtDetector(Detector):
     could be further divided into different detectors, but here they are combined.
 
     """
-
 
     def get_report(self, doc):
         """
@@ -51,13 +48,14 @@ class RaisesDoubtDetector(Detector):
         lowercase_text = nltk.Text(word.lower() for word in text)
         doubt_raising_words = []
 
-        ## First we'll look for negative language using syntax sets
+        # First we'll look for negative language using syntax sets
         neg_words = wn.synset('not.r.01').lemma_names()
         neg_words_in_text = []
         for x in lowercase_text:
             if x in neg_words:
                 neg_words_in_text.append(x)
-        doubt_raising_words.append(neg_words_in_text)
+        for each in neg_words_in_text:
+            doubt_raising_words.append(each)
 
         # Next we'll look at hedges (eg "she seems to be competent" vs "she is competent"
         hedged_words_in_text = []
@@ -70,9 +68,10 @@ class RaisesDoubtDetector(Detector):
         for x in lowercase_text:
             if x in hedged_words:
                 hedged_words_in_text.append(x)
-        doubt_raising_words.append(hedged_words_in_text)
+        for each in hedged_words_in_text:
+            doubt_raising_words.append(each)
 
-        # Next we'll look for faint praise. This portion returns words consituting faint praise based on synsets of
+        # Next we'll look for faint praise. This portion returns words constituting faint praise based on synsets of
         # words outlined by Trix & Psenka.Possible future developments include some consideration of number or ratios
         # of dependent clauses, etc requiring more advanced sentence mapping.
         faint_praise_in_text = []
@@ -83,7 +82,8 @@ class RaisesDoubtDetector(Detector):
                 if x in wn.synset(y).lemma_names():
                     if x != 'want':
                         faint_praise_in_text.append(x)
-        doubt_raising_words.append(faint_praise_in_text)
+        for each in faint_praise_in_text:
+            doubt_raising_words.append(each)
 
         # Next we'll look for irrelevant information, here including religion and spousal relationships. This
         # could be expanded to include other categories of information
@@ -99,7 +99,8 @@ class RaisesDoubtDetector(Detector):
                 if x in wn.synset(y).lemma_names():
                     if x != 'benedict':
                         irrelevancies_in_text.append(x)
-        doubt_raising_words.append(irrelevancies_in_text)
+        for each in irrelevancies_in_text:
+            doubt_raising_words.append(each)
 
         _doubt_raisers_regex = "(?:"
         for count, pair in enumerate(doubt_raising_words):

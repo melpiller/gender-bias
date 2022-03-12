@@ -11,7 +11,6 @@ do not count this as a superlative (eg "she does her best" rather than "she is t
 
 """
 
-
 import os
 import re
 import nltk
@@ -21,7 +20,6 @@ from genderbias.detector import Detector, Flag, Issue, Report
 _dir = os.path.dirname(__file__)
 
 
-
 class RaisesDoubtDetector(Detector):
     """
     This detector looks for superlatives in the text using superlative synsets. If superlatives are present, the
@@ -29,7 +27,6 @@ class RaisesDoubtDetector(Detector):
     a superlative).
 
     """
-
 
     def get_report(self, doc):
         """
@@ -56,8 +53,8 @@ class RaisesDoubtDetector(Detector):
                                 'great.s.02', 'excellent.s.01', 'phenomenal.s.02', 'fantastic.s.02', 'ace.s.01',
                                 'ever.r.01', 'most.r.01']
         for count, word in enumerate(lowercase_text):
-            for set in superlatives_synsets:
-                if word in wn.synset(set).lemma_names():
+            for synset in superlatives_synsets:
+                if word in wn.synset(synset).lemma_names():
                     if word_pos[count - 1][1] != 'PRP$':
                         superlatives_in_text.append(word)
         if len(superlatives_in_text) == 0:

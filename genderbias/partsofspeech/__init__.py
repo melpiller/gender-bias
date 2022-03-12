@@ -21,7 +21,6 @@ from genderbias.detector import Detector, Flag, Issue, Report
 _dir = os.path.dirname(__file__)
 
 
-
 class PartofSpeechDetector(Detector):
     """
     This detector looks for wording that weakens or distances a person from the action or position being described,
@@ -29,7 +28,6 @@ class PartofSpeechDetector(Detector):
     ("she was involved in x") tend to weaken the statement, rather than verbs alone ("she did x").
 
     """
-
 
     def get_report(self, doc):
         """
